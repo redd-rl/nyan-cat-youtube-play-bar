@@ -1,0 +1,35 @@
+{
+  "name": "Nyancat YouTube Play Bar",
+  "description": "Fun little extension to turn your YouTube play bar into a Nyancat! Nya!",
+  "version": "1.0",
+  "manifest_version": 3,
+  "action": {
+    "default_popup": "nyancat.html",
+    "default_icon": "nyancat_youtube.png"
+  },
+  "icons": {
+    "16": "nyancat_youtube_16.png",
+    "32": "nyancat_youtube_32.png",
+    "48": "nyancat_youtube_48.png",
+    "128": "nyancat_youtube_128.png"
+  },
+  "content_scripts": [
+    {
+      "js": ["scripts/nyancat.js", "scripts/rainbow_tail.js"],
+      "css": ["styles/playbar-override.css", "styles/nyancat-playbar.css"],
+      "matches": [
+        "*://www.youtube.com/watch*"
+      ]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "images/nyancat.gif", 
+        "images/rainbow_tail.gif",
+        "images/sky.gif"
+      ],
+      "matches": ["*://www.youtube.com/*"]
+    }
+  ]
+}

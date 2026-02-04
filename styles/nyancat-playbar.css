@@ -1,0 +1,40 @@
+@charset "UTF-8";
+
+.nyan-chapter {
+  position: relative;
+  overflow: visible;
+}
+
+.nyan-layer {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 16px;
+
+  overflow-x: hidden;
+  overflow-y: visible;
+
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.nyan-row {
+  display: flex;
+  height: 100%;
+}
+
+.nyan-img {
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.ytp-chapter-hover-container.nyan-first > .nyan-layer > .nyan-row > img:first-child {
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+}
+
+.ytp-chapter-hover-container.nyan-last > .nyan-layer > .nyan-row > img:last-child {
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+}

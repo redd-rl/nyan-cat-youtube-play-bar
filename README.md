@@ -19,3 +19,9 @@ Click the little switch in the top right.
 Click **Load unpacked** and select the folder where you extracted or cloned the extension to.
 ## 6: Done!
 It should now work!
+
+# Common issues
+## Failed to load extension - Manifest file is missing or unreadable. Could not load manifest
+Look inside the nyan-cat-youtube-play-bar-main directory, is there another folder inside?
+If so, load that folder instead.
+If not, make an issue on this GitHub repository.

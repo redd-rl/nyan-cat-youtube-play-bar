@@ -16,3 +16,4 @@ function addNyan(scrubber) {
 new MutationObserver(() => {
     addNyan(document.querySelector(".ytp-scrubber-pull-indicator"));
 }).observe(document.body, { childList: true, subtree: true });
+

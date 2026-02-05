@@ -15,8 +15,15 @@
   },
   "content_scripts": [
     {
-      "js": ["scripts/nyancat.js", "scripts/rainbow_tail.js"],
-      "css": ["styles/playbar-override.css", "styles/nyancat-playbar.css"],
+      "js": [
+        "scripts/nyancat.js", 
+        "scripts/rainbow_tail.js",
+        "scripts/test.js"
+      ],
+      "css": [
+        "styles/playbar-override.css", 
+        "styles/nyancat-playbar.css"
+      ],
       "matches": [
         "*://www.youtube.com/*"
       ]

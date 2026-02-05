@@ -1,6 +1,7 @@
 let scrubberObserver = null;
 let chapterObserver = null;
 let resizeTimeout = null;
+let fullscreenTimeout = null;
 let start = Date.now();
 
 let lastFired = Date.now();
@@ -190,19 +191,37 @@ function initRainbow() {
 
 
 document.addEventListener("yt-navigate-finish", initRainbow, true);
-// document.addEventListener("yt-page-data-updated", initRainbow, true);
+document.addEventListener("yt-page-data-updated", initRainbow, true);
 
-document.addEventListener("fullscreenchange", () => {
-  rebuildNyan();
-  rebindScrubberObserver();
-});
+let flexyResizeObserver = null;
+
+function observeFlexyResize() {
+  if (flexyResizeObserver) flexyResizeObserver.disconnect();
+
+  const flexy = document.querySelector('ytd-watch-flexy');
+  if (!flexy) return;
+
+  flexyResizeObserver = new ResizeObserver(() => {
+    clearTimeout(fullscreenTimeout);
+    fullscreenTimeout = setTimeout(() => {
+      rebuildNyan();
+      rebindScrubberObserver();
+    }, 300);
+  });
+
+  flexyResizeObserver.observe(flexy);
+}
+
+document.addEventListener("yt-navigate-finish", observeFlexyResize, true);
+document.addEventListener("yt-page-data-updated", observeFlexyResize, true);
+observeFlexyResize();
 
 window.addEventListener("resize", () => {
   clearTimeout(resizeTimeout);
   resizeTimeout = setTimeout(() => {
     rebuildNyan();
     rebindScrubberObserver();
-  }, 100);
+  }, 200);
 });
 
 initRainbow();

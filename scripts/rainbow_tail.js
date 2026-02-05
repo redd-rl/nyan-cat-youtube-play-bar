@@ -1,3 +1,6 @@
+let scrubberObserver = null;
+let chapterObserver = null;
+
 function fillChaptersByScrubber() {
   const chapters = Array.from(
     document.querySelectorAll('.ytp-chapter-hover-container')
@@ -86,28 +89,45 @@ function observeScrubber() {
   const scrubber = document.querySelector('.ytp-scrubber-container');
   if (!scrubber) return;
 
-  const observer = new MutationObserver(() => {
+  if (scrubberObserver) scrubberObserver.disconnect();
+
+  scrubberObserver = new MutationObserver(() => {
     fillChaptersByScrubber();
   });
 
 
-  observer.observe(scrubber, {
+  scrubberObserver.observe(scrubber, {
     attributes: true,
     attributeFilter: ['style']
   });
 }
 
+function initRainbow() {
+  if (location.pathname !== "/watch") return;
+  startChapterObserver();
+  fillChaptersByScrubber();
+  observeScrubber();
+}
 
-const chapterObserver = new MutationObserver(() => {
-  const chapters = document.querySelectorAll('.ytp-chapter-hover-container');
-  if (chapters.length) {
+function startChapterObserver() {
+  if (chapterObserver) chapterObserver.disconnect();
+
+  chapterObserver = new MutationObserver(() => {
+    if (location.pathname !== "/watch") return;
+
+    const chapters = document.querySelectorAll('.ytp-chapter-hover-container');
+    if (!chapters.length) return;
+
     fillChaptersByScrubber();
     observeScrubber();
-    chapterObserver.disconnect();
-  }
-});
+  });
 
-chapterObserver.observe(document.body, {
-  childList: true,
-  subtree: true
-});
+  chapterObserver.observe(document.body, {
+    childList: true,
+    subtree: true
+  });
+}
+
+document.addEventListener("yt-navigate-finish", initRainbow, true);
+document.addEventListener("yt-page-data-updated", initRainbow, true);
+initRainbow();

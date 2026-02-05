@@ -12,7 +12,10 @@ function addNyan(scrubber) {
     scrubber.appendChild(img);
 }
 
-// wait for the scrubber to spawn in
-new MutationObserver(() => {
-    addNyan(document.querySelector(".ytp-scrubber-pull-indicator"));
-}).observe(document.body, { childList: true, subtree: true });
+function initNyan() {
+  if (location.pathname !== "/watch") return;
+  addNyan(document.querySelector(".ytp-scrubber-pull-indicator"));
+}
+
+document.addEventListener("yt-navigate-finish", initNyan, true);
+initNyan();

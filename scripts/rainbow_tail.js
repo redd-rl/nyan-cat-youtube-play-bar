@@ -206,7 +206,7 @@ function observeFlexyResize() {
     fullscreenTimeout = setTimeout(() => {
       rebuildNyan();
       rebindScrubberObserver();
-    }, 300);
+    }, 500);
   });
 
   flexyResizeObserver.observe(flexy);
